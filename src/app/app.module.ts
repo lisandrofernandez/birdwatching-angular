@@ -10,6 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { HomeComponent } from './home/home.component';
 
@@ -29,6 +30,7 @@ import { HomeComponent } from './home/home.component';
     MatIconModule,
     MatMenuModule,
     MatToolbarModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
