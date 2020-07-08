@@ -1,0 +1,43 @@
+<mat-toolbar fxLayout="row" color="primary">
+    <div>Birdwatching</div>
+    <div fxFlex></div>
+
+    <button mat-button fxHide.xs>
+        <mat-icon svgIcon="pigeon"></mat-icon>
+        Birds
+    </button>
+    <button mat-button fxHide.xs>
+        <mat-icon svgIcon="landscape"></mat-icon>
+        Natural reserves
+    </button>
+    <button mat-button fxHide.xs>
+        <mat-icon>help</mat-icon>
+        About
+    </button>
+    <button mat-button fxHide.xs>
+        <mat-icon svgIcon="github"></mat-icon>
+        GitHub
+    </button>
+
+    <button mat-icon-button [matMenuTriggerFor]="dropMenu" fxHide fxShow.xs>
+        <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #dropMenu="matMenu">
+        <button mat-menu-item>
+            <mat-icon svgIcon="pigeon"></mat-icon>
+            Birds
+        </button>
+        <button mat-menu-item>
+            <mat-icon svgIcon="landscape"></mat-icon>
+            Natural reserves
+        </button>
+        <button mat-menu-item>
+            <mat-icon>help</mat-icon>
+            About
+        </button>
+        <button mat-menu-item>
+            <mat-icon svgIcon="github"></mat-icon>
+            GitHub
+        </button>
+    </mat-menu>
+</mat-toolbar>
