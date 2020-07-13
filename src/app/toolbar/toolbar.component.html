@@ -2,7 +2,7 @@
     <div class="toolbar-title" routerLink="/">Birdwatching</div>
     <div fxFlex></div>
 
-    <button mat-button fxHide.xs>
+    <button mat-button routerLink="birds" fxHide.xs>
         <mat-icon svgIcon="pigeon"></mat-icon>
         Birds
     </button>
@@ -23,7 +23,7 @@
         <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #dropMenu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item routerLink="birds">
             <mat-icon svgIcon="pigeon"></mat-icon>
             Birds
         </button>

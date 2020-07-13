@@ -1,0 +1,23 @@
+<div class="container">
+    <mat-card>
+    <mat-card-title><h1>Birds</h1></mat-card-title>
+    <mat-card-content>
+        <mat-table [dataSource]="birds" class="mat-elevation-z8">
+            <!-- ID column -->
+            <ng-container matColumnDef="id">
+            <mat-header-cell  *matHeaderCellDef> ID </mat-header-cell>
+            <mat-cell *matCellDef="let bird"> {{bird.id}} </mat-cell>
+            </ng-container>
+        
+            <!-- Name column -->
+            <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let bird"> {{bird.name}} </mat-cell>
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </mat-card-content>
+    </mat-card>
+</div>
