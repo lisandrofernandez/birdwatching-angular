@@ -16,13 +16,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { HomeComponent } from './home/home.component';
 import { BirdListComponent } from './birds/bird-list/bird-list.component';
+import { NaturalReserveListComponent } from './natural-reserves/natural-reserve-list/natural-reserve-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     HomeComponent,
-    BirdListComponent
+    BirdListComponent,
+    NaturalReserveListComponent
   ],
   imports: [
     BrowserModule,
