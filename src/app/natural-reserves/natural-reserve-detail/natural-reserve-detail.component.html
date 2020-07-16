@@ -1,0 +1,30 @@
+<div *ngIf="naturalReserve" class="container">
+    <mat-card>
+        <mat-card-title><h1>Natural reserve</h1></mat-card-title>
+        <mat-card-content>
+            <form (ngSubmit)="onSubmit()" #naturalReserveForm="ngForm">
+                <mat-form-field appearance="standard" class="full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput [(ngModel)]="naturalReserve.name" name="name" required>
+                    <mat-hint>Max 150 characters</mat-hint>
+                </mat-form-field>
+                <br><br>
+                <mat-form-field appearance="standard">
+                    <mat-label>Region</mat-label>
+                    <mat-select [(value)]="naturalReserve.regionId" required>
+                        <mat-option *ngFor="let region of regions" [value]="region.id">{{region.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <br><br>
+
+                <div fxLayout="row">
+                    <button mat-button color="primary" type="submit" [disabled]="!naturalReserveForm.valid">
+                        <mat-icon>save</mat-icon>
+                        Save
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

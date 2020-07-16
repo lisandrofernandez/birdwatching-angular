@@ -9,7 +9,7 @@ import { NaturalReserveService } from '../shared/natural-reserve.service'
   styleUrls: ['./natural-reserve-list.component.scss']
 })
 export class NaturalReserveListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name'];
+  displayedColumns: string[] = ['id', 'name', 'details'];
 
   naturalReserves: NaturalReserve[];
 
