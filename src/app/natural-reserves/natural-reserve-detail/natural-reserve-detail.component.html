@@ -5,7 +5,7 @@
             <form (ngSubmit)="onSubmit()" #naturalReserveForm="ngForm">
                 <mat-form-field appearance="standard" class="full-width">
                     <mat-label>Name</mat-label>
-                    <input matInput [(ngModel)]="naturalReserve.name" name="name" required>
+                    <input matInput [(ngModel)]="naturalReserve.name" name="name" maxlength="150" required>
                     <mat-hint>Max 150 characters</mat-hint>
                 </mat-form-field>
                 <br><br>
