@@ -45,7 +45,11 @@ export class NaturalReserveDetailComponent extends ComponentErrorHandler impleme
   private getNaturalReserve(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.naturalReserveService.getNaturalReserveDetails(id)
-      .subscribe(naturalReserve => this.naturalReserve = naturalReserve)
+      .subscribe(
+        naturalReserve => this.naturalReserve = naturalReserve,
+        //this.handleError
+        (error: ServiceError) => this.handleError(error)
+      )
   }
 
   private updateNaturalReserve(): void {

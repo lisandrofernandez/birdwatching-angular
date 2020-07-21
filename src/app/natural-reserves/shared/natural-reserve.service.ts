@@ -35,11 +35,7 @@ export class NaturalReserveService {
   getNaturalReserveDetails(id: number): Observable<NaturalReserveDetails> {
     const url = `${this.reservesUrl}/${id}`;
     return this.http.get<NaturalReserveDetails>(url).pipe(
-      catchError(error => {
-        // TODO: show a message with the error
-        console.error(error);
-        return of(null);
-      })
+      catchError(this.handleError)
     );
   }
 
