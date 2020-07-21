@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { NaturalReserve } from './natural-reserve.model';
 import { NaturalReserveDetails } from './natural-reserve-details.model';
+import { ApiError } from '../../common/api-error';
+import { ServiceError } from '../../common/service-error';
 
 @Injectable({ providedIn: 'root' })
 export class NaturalReserveService {
@@ -45,12 +47,35 @@ export class NaturalReserveService {
   updateNaturalReserve(naturalReserve: NaturalReserveDetails): Observable<NaturalReserveDetails> {
     const url = `${this.reservesUrl}/${naturalReserve.id}`;
     return this.http.put<NaturalReserveDetails>(url, naturalReserve, this.httpOptions).pipe(
-      catchError(error => {
-        // TODO: show a message with the error
-        console.error(error);
-        return of(null);
-      })
+      catchError(this.handleError)
     );
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    if (error.error instanceof ErrorEvent) {
+      return throwError(new ServiceError(
+        'Unexpected error', false, ['Unexpected error'])
+      );
+    } else {
+      switch (error.status) {
+        case 400: { // Bad Request
+          let apiError = error.error as ApiError;
+          return throwError(new ServiceError(
+            apiError.message, true, apiError.errors)
+          );
+        }
+        case 404: { // Not found
+          return throwError(new ServiceError(
+            'Not found', false, ['Not found'])
+          );
+        }
+        case 500: // Internal Server Error
+        default:
+          return throwError(new ServiceError(
+            'Unexpected error', false, ['Unexpected error'])
+          );
+      }
+    }
   }
 
 }

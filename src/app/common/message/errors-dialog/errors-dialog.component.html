@@ -1,0 +1,12 @@
+<div mat-dialog-content *ngIf="errors">
+  <div *ngIf="errors.length === 1; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock> {{errors[0]}} </ng-template>
+    <ng-template #elseBlock>
+      <ul>
+        <li *ngFor="let error of errors"> {{error}} </li>
+      </ul>
+    </ng-template>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</div>
