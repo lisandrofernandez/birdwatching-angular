@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { NaturalReserve } from './natural-reserve.model';
@@ -23,11 +23,7 @@ export class NaturalReserveService {
   /** GET natural reserves from the server */
   getNaturalReserves(): Observable<NaturalReserve[]> {
     return this.http.get<NaturalReserve[]>(this.reservesUrl).pipe(
-      catchError(error => {
-        // TODO: show a message with the error
-        console.error(error);
-        return of([]);
-      })
+      catchError(this.handleError)
     );
   }
 
