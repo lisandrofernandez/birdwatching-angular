@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { NaturalReserve } from './natural-reserve.model';
 import { NaturalReserveDetails } from './natural-reserve-details.model';
-import { ApiError } from '../../common/api-error';
-import { ServiceError } from '../../common/service-error';
+import { ServiceErrorHandler } from '../../common/service-error-handler';
 
 @Injectable({ providedIn: 'root' })
-export class NaturalReserveService {
+export class NaturalReserveService extends ServiceErrorHandler {
 
   private reservesUrl = 'http://localhost:8080/api/v1/reserves';
 
@@ -18,7 +17,9 @@ export class NaturalReserveService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    super();
+  }
 
   /** GET natural reserves from the server */
   getNaturalReserves(): Observable<NaturalReserve[]> {
@@ -41,33 +42,6 @@ export class NaturalReserveService {
     return this.http.put<NaturalReserveDetails>(url, naturalReserve, this.httpOptions).pipe(
       catchError(this.handleError)
     );
-  }
-
-  private handleError(error: HttpErrorResponse): Observable<never> {
-    if (error.error instanceof ErrorEvent) {
-      return throwError(new ServiceError(
-        'Unexpected error', false, ['Unexpected error'])
-      );
-    } else {
-      switch (error.status) {
-        case 400: { // Bad Request
-          let apiError = error.error as ApiError;
-          return throwError(new ServiceError(
-            apiError.message, true, apiError.errors)
-          );
-        }
-        case 404: { // Not found
-          return throwError(new ServiceError(
-            'Not found', false, ['Not found'])
-          );
-        }
-        case 500: // Internal Server Error
-        default:
-          return throwError(new ServiceError(
-            'Unexpected error', false, ['Unexpected error'])
-          );
-      }
-    }
   }
 
 }
