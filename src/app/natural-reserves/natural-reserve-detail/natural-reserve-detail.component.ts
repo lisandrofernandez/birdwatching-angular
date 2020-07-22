@@ -29,17 +29,21 @@ export class NaturalReserveDetailComponent extends ComponentErrorHandler impleme
   }
 
   ngOnInit(): void {
-    this.getRegions();
-    this.getNaturalReserve();
+    this.getRegionsAndThenNaturalReserve();
   }
 
   onSubmit(): void {
     this.updateNaturalReserve();
   }
 
-  private getRegions(): void {
+  private getRegionsAndThenNaturalReserve(): void {
     this.regionService.getRegions()
-      .subscribe(regions => this.regions = regions);
+      .subscribe(
+        regions => this.regions = regions,
+        //this.handleError
+        (error: ServiceError) => this.handleError(error),
+        () => this.getNaturalReserve() 
+      );
   }
 
   private getNaturalReserve(): void {
@@ -60,7 +64,7 @@ export class NaturalReserveDetailComponent extends ComponentErrorHandler impleme
           this.messageService.showQuickMessage('Natural reserve saved');
         },
         //this.handleError
-        (error: ServiceError) => { this.handleError(error); }
+        (error: ServiceError) => this.handleError(error)
       );
   }
 
