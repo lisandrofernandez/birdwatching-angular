@@ -27,7 +27,7 @@ export class BirdListComponent extends ComponentErrorHandler implements OnInit {
   }
 
   getBirds(): void {
-    this.birdService.getHeroes()
+    this.birdService.getBirds()
       .subscribe(
         birds => this.birds = birds,
         //this.handleError
